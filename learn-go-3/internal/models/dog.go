@@ -1,5 +1,7 @@
 package models
 
+import "learn-3/internal/services"
+
 type DogBreed = string
 
 const (
@@ -7,6 +9,14 @@ const (
 	DogBreedCollie DogBreed = "Collie"
 	DogBreedNA     DogBreed = "DogNA"
 )
+
+var dogsImages = []string{
+	"https://images.dog.ceo/breeds/komondor/n02105505_3389.jpg",
+	"https://images.dog.ceo/breeds/leonberg/n02111129_1832.jpg",
+	"https://images.dog.ceo/breeds/maltese/n02085936_2927.jpg",
+	"https://images.dog.ceo/breeds/cavapoo/doggo3.jpg",
+	"https://images.dog.ceo/breeds/deerhound-scottish/n02092002_6003.jpg",
+}
 
 type Dog struct {
 	Name   string
@@ -20,7 +30,11 @@ func (dog *Dog) GetName() string {
 }
 
 func (dog *Dog) GetBreed() string {
-	return "Dog: " + dog.Breed
+	breed := dog.Breed
+	if breed == DogBreedNA {
+		breed = "NA"
+	}
+	return "Dog: " + breed
 }
 
 func (dog *Dog) GetAge() int {
@@ -32,7 +46,8 @@ func (dog *Dog) GetHeight() int {
 }
 
 func (_ *Dog) GetImageUrl() string {
-	return "https://images.dog.ceo/breeds/leonberg/n02111129_1832.jpg"
+	randomNumber := services.Random(0, 5)
+	return dogsImages[randomNumber]
 }
 
 func (dog *Dog) SetBreed(breed string) {

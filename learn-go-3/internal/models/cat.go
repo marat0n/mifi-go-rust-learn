@@ -1,5 +1,10 @@
 package models
 
+import (
+	"fmt"
+	"learn-3/internal/services"
+)
+
 type CatBreed = string
 
 const (
@@ -20,7 +25,11 @@ func (cat *Cat) GetName() string {
 }
 
 func (cat *Cat) GetBreed() string {
-	return "Cat: " + cat.Breed
+	breed := cat.Breed
+	if breed == CatBreedNA {
+		breed = "NA"
+	}
+	return "Cat: " + breed
 }
 
 func (cat *Cat) GetAge() int {
@@ -32,7 +41,11 @@ func (cat *Cat) GetHeight() int {
 }
 
 func (_ *Cat) GetImageUrl() string {
-	return "https://cataas.com/cat"
+	digit := services.Random(0, 100)
+	return fmt.Sprintf(
+		"https://cataas.com/cat?%d",
+		digit,
+	)
 }
 
 func (cat *Cat) SetBreed(breed string) {

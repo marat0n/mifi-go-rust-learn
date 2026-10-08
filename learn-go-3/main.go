@@ -75,6 +75,15 @@ func main() {
 				<head>
 				<title>%s</title>
 				<style>
+					html {
+						background: white;
+						filter: invert(1) hue-rotate(180deg);
+					}
+
+					img {
+						filter: invert(1) hue-rotate(180deg);
+					}
+
 					.animal {
 						border: 1px solid  black;
 						border-radius: 8px;
