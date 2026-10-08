@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	a "learn/internal/animals"
-	randomgenerator "learn/internal/randomGenerator"
+	"strings"
 )
 
 // Спрашиваем пользователя: Добавить ещё животное?
@@ -16,8 +16,15 @@ import (
 //		Заканчиваем спрашивать и выводим результат
 
 func main() {
-	fmt.Println(randomgenerator.Random1(50, 77))
-	fmt.Println(randomgenerator.Random2(50, 77))
+	a := 0
+	b := 1
+	fmt.Printf("%d. %d", a, b)
+
+	userInput := "значение"
+	answer := "значение"
+
+	if strings.ToLower(strings.Trim(userInput, " ")) == strings.ToLower(answer) {
+	}
 }
 
 func zoo() {
