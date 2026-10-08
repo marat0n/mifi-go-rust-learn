@@ -7,11 +7,11 @@ import (
 	"strings"
 )
 
-// 1. Interface
+// 1. DONE: Interface
 
-// 2. Struct injecting
+// 2. DONE: Struct injecting
 
-// 3. JSON serialization / deserialization
+// 3. TODO: JSON serialization / deserialization
 
 // Любая программа это: данные и поведение
 
