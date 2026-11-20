@@ -71,6 +71,16 @@ func (state *State) chat(ctx *gin.Context) {
 		conn.WriteMessage(websocket.TextMessage, msg)
 	}
 
+	conn.WriteMessage(websocket.TextMessage, []byte(";;end;;"))
+
+	// Привет!
+	// Как дела?
+	// ;;end;;
+
+	// {"msg": "Привет!", time: "..."}
+	// {"msg": "Как дела?", time: "..."}
+	// {"status": "end-loading"}
+
 	// We are trying to lock the mutex.
 	// If this mutex was locked by another connection, we must to wait untill it unlocked.
 	// When it'll be unlocked we will lock ourselves, so no other connections could interrupt us here.
