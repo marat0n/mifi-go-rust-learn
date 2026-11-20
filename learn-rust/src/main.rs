@@ -2,10 +2,10 @@
 // TODO: Fix cyrillic symbols
 // TODO: Upgrade backend and fronted: add users models, make messages model better
 
-use futures_util::{SinkExt, StreamExt, TryStreamExt};
-use reqwest_websocket::{Error, Message, Upgrade, WebSocket};
+use futures_util::{SinkExt, TryStreamExt};
+use reqwest_websocket::{Error, Message, Upgrade};
 use sola_raylib::{color::Color, drawing::RaylibDraw};
-use std::{sync::Arc, time::Duration};
+use std::sync::Arc;
 use tokio::sync::Mutex;
 
 type ChatMessage = String;
@@ -25,8 +25,6 @@ async fn main() {
         run_client_thread(client_arc).await;
     });
 
-    tokio::time::sleep(Duration::from_secs(2)).await;
-
     let raylib_arc = app_state.clone();
     run_raylib_thread(raylib_arc).await;
 }
@@ -40,17 +38,17 @@ async fn run_client_thread(state: Arc<Mutex<AppState>>) {
 }
 
 async fn run_raylib_thread(state: Arc<Mutex<AppState>>) {
-    let messages_history = {
-        let state = state.lock().await;
-        state.messages_history.clone()
-    };
-
     let (mut rl, thread) = sola_raylib::init()
         .size(500, 500)
         .title("Global Chat")
         .build();
 
     while !rl.window_should_close() {
+        let messages_history = {
+            let state = state.lock().await;
+            state.messages_history.clone()
+        };
+
         let mut dr = rl.begin_drawing(&thread);
 
         dr.clear_background(Color::WHITE);
